@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Pixel Arcade</title>
+<meta name="description" content="Free browser games: geography, words and cooking. No ads, no sign-up.">
+<style>
+:root{--bg:#0b0820;--ink:#e9f7ff;--dim:#9aa7c7;--teal:#2de2c8;--pink:#ff3fa4}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 system-ui,sans-serif}
+main{max-width:860px;margin:0 auto;padding:24px 16px 48px}
+h1{font:700 clamp(28px,7vw,48px)/1.1 ui-monospace,monospace;color:var(--teal);text-shadow:0 0 12px var(--teal);margin:16px 0 4px}
+.sub{color:var(--dim);margin:0 0 24px}
+.grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fill,minmax(240px,1fr))}
+.card{display:block;padding:18px;border:2px solid var(--teal);border-radius:6px;color:inherit;text-decoration:none;background:#120e30;box-shadow:0 0 14px #2de2c844}
+.card:nth-child(even){border-color:var(--pink);box-shadow:0 0 14px #ff3fa444}
+.card h2{margin:0 0 6px;font:700 20px ui-monospace,monospace}.card p{margin:0 0 12px;color:var(--dim)}
+.play{font:700 14px ui-monospace,monospace;color:var(--teal)}
+section.more{margin-top:36px;border-top:1px solid #2b2760;padding-top:20px}
+section.more h3{margin:0 0 8px;font:700 18px ui-monospace,monospace}
+a{color:var(--teal)}footer{margin-top:36px;color:var(--dim);font-size:13px}
+.hidden{display:none}
+</style></head><body><main>
+<h1>PIXEL ARCADE</h1>
+<p class="sub">Free browser games. No ads, no sign-up. Works on phone and desktop.</p>
+<div class="grid" id="games"></div>
+<section class="more" id="more">
+<h3>More from Pixel Arcade</h3>
+<div id="promos"></div>
+<p id="tip" class="hidden"></p>
+</section>
+<footer>New games get added here.</footer>
+<script>
+/* To add a game, add one line here. */
+const GAMES=[
+ {name:"Pixel Atlas",text:"Neon pixel geography quiz. Maps, flags and anthems.",url:"https://benrhamen.github.io/pixel-atlas/?v=1"},
+ {name:"Neon Lexicon",text:"Tron-style five-letter word hunt. Find every word before time runs out.",url:"https://benrhamen.github.io/neon-lexicon/?v=1"},
+ {name:"Pixel Chef",text:"Kawaii cooking game that teaches ingredients and recipes.",url:"https://benrhamen.github.io/pixel-chef/?v=1"},
+ {name:"Neon Dragon",text:"Retro arcade gamebook: an adventure through Pixel Harbour.",url:"https://benrhamen.github.io/neon-dragon/?v=1"},
+ {name:"Neon Bird Rescue",text:"Pixel-art multiplication game with customizable lock-pickers.",url:"https://benrhamen.github.io/neon-bird-rescue/?v=1"}
+];
+/* Promos stay hidden until live is true and url is a real link. */
+const PROMOS=[
+ {live:false,title:"Moving to Hong Kong? Starter pack (EN/FR)",text:"20 steps, checklists and worksheets for your first 72 hours to first month.",url:""}
+];
+const TIP_URL=""; /* Ko-fi link, once created */
+const g=document.getElementById("games");
+GAMES.forEach(x=>{const a=document.createElement("a");a.className="card";a.href=x.url;
+ a.innerHTML="<h2></h2><p></p><span class='play'>PLAY &rarr;</span>";
+ a.querySelector("h2").textContent=x.name;a.querySelector("p").textContent=x.text;g.appendChild(a)});
+const p=document.getElementById("promos");let any=false;
+PROMOS.filter(x=>x.live&&x.url).forEach(x=>{any=true;const d=document.createElement("p");
+ const a=document.createElement("a");a.href=x.url;a.textContent=x.title;d.append(a," - "+x.text);p.appendChild(d)});
+if(TIP_URL){any=true;const t=document.getElementById("tip");t.className="";
+ const a=document.createElement("a");a.href=TIP_URL;a.textContent="Buy me a coffee";t.append("Like the games? ",a)}
+if(!any)document.getElementById("more").className="hidden";
+</script></main></body></html>
