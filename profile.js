@@ -4,15 +4,15 @@
 "use strict";
 var KEY="pa.profile.v1", NICK_MAX=12;
 var SKINS=["#ffdbb5","#f5c28f","#e0a370","#c68650","#9a5f34","#6b3f22","#5b8cff","#5fd068","#a3a7b5"];
-var HAIR_COLORS=["#1b1b2a","#5a3215","#a8642a","#f2c94c","#ff5d8f","#29e7ff","#9b5cff","#eeeeee"];
+var HAIR_COLORS=["#1b1b2a","#5a3215","#a8642a","#ff5d8f","#29e7ff","#9b5cff","#eeeeee"];
 var OUTFITS=["#ff2e88","#29e7ff","#3dff6e","#ffd23f","#8a3ffc","#ff7a1a","#f5f5f5","#5b8cff"];
-var HAIR_STYLES=["short","spiky","long","bun","pigtails","ponytail","mohawk","bald","curly","afro","bob","sidepart","braids","buzz","topknot","messy","wavy","undercut","mullet","twinbuns"];
+var HAIR_STYLES=["bald","buzz","short","undercut","mohawk","messy","sidepart","curly","afro","bob","topknot","bun","twinbuns","wavy","ponytail","pigtails","braids","long"];
 /* styles 8+ map to a base style (index 0-7) for games that only know the first 8 */
 var STYLE_BASE={curly:"short",afro:"short",bob:"long",sidepart:"short",braids:"long",buzz:"short",topknot:"bun",messy:"spiky",wavy:"long",undercut:"short",mullet:"long",twinbuns:"bun"};
 var ACCESSORIES=["none","cap","glasses","headphones","crown","sunglasses","wizardHat","beanie","bow","headband","goggles","halo","horns","bunnyEars","catEars","eyepatch","mask","earrings"];
-var EYES=["dot","wide","sleepy","happy","wink","sparkle","heart","slit","round","cross"];
-var MOUTHS=["smile","grin","open","neutral","smirk","tongue","oh","kitty","frown","braces"];
-var OUTFIT_STYLES=["tee","hoodie","jacket","dress","robe","armor","overalls","suit","labcoat","stripes"];
+var EYES=["dot","wide","sleepy","happy","wink","sparkle","heart","slit","round","cross","lashes","star"];
+var MOUTHS=["smile","grin","open","neutral","smirk","tongue","oh","kitty","frown","braces","fang","laugh"];
+var OUTFIT_STYLES=["tee","hoodie","jacket","dress","robe","armor","overalls","suit","labcoat","stripes","vest","none"];
 var EXTRAS=["beard","cape","gloves","magicBoots","freckles","blush","scar","moustache","brows"];
 var BLOCK=["FUCK","FUK","FCK","SHIT","BITCH","CUNT","DICK","COCK","PUSSY","ASSHOLE","BASTARD","WANK","TWAT","SLUT","WHORE","PISS","BOLLOCK","PENIS","VAGINA","SEX","PORN","NAZI","HITLER","RAPE","NIGG","NIGA","FAGG","RETARD","SPAZ","IDIOT","STUPID"];
 var ALLOW=["SUSSEX","ESSEX","SEXTON","COCKATOO","COCKATIEL","DICKENS","HANCOCK","PEACOCK","GRAPE","DRAPE","SCRAPE","TRAPE"];
@@ -60,7 +60,7 @@ function sprite(p){p=clean(p);var g=[],i,j;for(i=0;i<16;i++){g.push([]);for(j=0;
  var sk=p.skinHex,hc=p.hairHex,oc=p.outfitHex,ac=p.accentHex,ec=p.eyeHex,ex=p.extras,ink="#14102c",mc="#b0453a";
  if(ex.cape)r(2,11,13,15,"#7a1fa2");
  r(3,11,12,15,oc);r(2,11,2,13,oc);r(13,11,13,13,oc);r(2,14,2,14,ex.gloves?"#ffffff":sk);r(13,14,13,14,ex.gloves?"#ffffff":sk);
- var os=p.outfitStyle;
+ var os=({10:8,11:0})[p.outfitStyle]!==undefined?({10:8,11:0})[p.outfitStyle]:p.outfitStyle;
  if(os===1){r(5,11,10,11,shade(oc,0.7));s(7,13,ac);s(8,13,ac)}
  if(os===2)r(7,12,7,15,ac);
  if(os===3){r(2,13,13,15,oc);r(2,15,13,15,ac)}
@@ -75,7 +75,7 @@ function sprite(p){p=clean(p);var g=[],i,j;for(i=0;i<16;i++){g.push([]);for(j=0;
  r(7,11,8,11,sk);
  if(ex.magicBoots){r(4,15,5,15,"#ffd23f");r(10,15,11,15,"#ffd23f")}
  r(4,4,11,10,sk);s(4,4,null);s(11,4,null);s(4,10,null);s(11,10,null);
- var e=p.eyes;
+ var e=({10:1,11:5})[p.eyes]!==undefined?({10:1,11:5})[p.eyes]:p.eyes;
  if(e===0){s(6,7,ec);s(9,7,ec)}
  if(e===1){r(6,7,6,8,ec);r(9,7,9,8,ec)}
  if(e===2){r(5,7,6,7,ec);r(9,7,10,7,ec)}
@@ -86,7 +86,7 @@ function sprite(p){p=clean(p);var g=[],i,j;for(i=0;i<16;i++){g.push([]);for(j=0;
  if(e===7){r(6,6,6,8,ec);r(9,6,9,8,ec)}
  if(e===8){r(5,7,6,8,ec);r(9,7,10,8,ec);s(5,7,"#ffffff");s(9,7,"#ffffff")}
  if(e===9){[[5,6],[7,6],[6,7],[5,8],[7,8]].forEach(function(q){s(q[0],q[1],ec);s(q[0]+3,q[1],ec)})}
- var m=p.mouth;
+ var m=({10:0,11:2})[p.mouth]!==undefined?({10:0,11:2})[p.mouth]:p.mouth;
  if(m===0){s(6,9,mc);s(7,10,mc);s(8,10,mc);s(9,9,mc)}
  if(m===1){r(6,9,9,9,"#ffffff");s(5,9,mc);s(10,9,mc);r(6,10,9,10,mc)}
  if(m===2)r(7,9,8,10,"#5a1f1f");
@@ -194,6 +194,8 @@ function grid(p){
  if(os===7){r(10,20,13,21,"#ffffff");s(11,22,ac);s(12,22,ac);r(11,23,12,27,ac)}
  if(os===8){r(6,21,17,27,"#f4f8ff");r(6,26,17,27,"#cfd8ea");s(9,22,oc);s(14,22,oc)}
  if(os===9){for(var yy=22;yy<=26;yy+=2)r(5,yy,18,yy,ac)}
+ if(os===10){r(10,20,13,21,"#ffffff");r(11,22,12,27,"#ffffff");r(7,20,9,27,oc);r(14,20,16,27,oc);r(6,21,6,27,oc);r(17,21,17,27,oc);r(5,22,5,27,oc);r(18,22,18,27,oc);r(10,21,13,21,skD);r(10,20,13,20,sk);r(11,22,12,27,sk);row(23,[11,12],skD);row(25,[11,12],skD);r(7,26,9,27,oD);r(14,26,16,27,oD);row(24,[8,15],ac);row(25,[8,15],ac)}
+ if(os===11){r(5,20,18,27,sk);r(5,26,18,27,skD);r(9,20,14,20,skD);r(6,20,17,20,skD);r(4,21,5,21,sk);r(18,21,19,21,sk);r(5,26,18,27,oc);r(5,26,18,26,oL);r(6,27,17,27,oD)}
  /* hands */
  r(3,22,4,25,ex.gloves?"#ffffff":sk);r(19,22,20,25,ex.gloves?"#ffffff":sk);row(25,[3,4,19,20],ex.gloves?"#d4def2":skD);
  r(4,21,5,21,oc);r(18,21,19,21,oc);
@@ -234,13 +236,15 @@ function grid(p){
   if(e==="happy"||(e==="wink"&&i===1)){row(12,[x0+1,x0+2],INK);row(13,[x0,x0+3],INK);return}
   if(e==="sleepy"){row(13,[x0,x0+1,x0+2,x0+3],INK);row(14,[x0+1,x0+2],sk);return}
   if(e==="cross"){row(11,[x0,x0+3],INK);row(12,[x0+1,x0+2],INK);row(13,[x0,x0+3],INK);return}
-  var tall=e==="round"||e==="wide";
+  var tall=e==="round"||e==="wide"||e==="lashes"||e==="star";
   r(x0,11,x0+2,11,INK);r(x0,12,x0+2,14,sh(ec,.85));row(14,[x0,x0+1,x0+2],sh(ec,1.5));s(i?x0+3:x0-1,11,INK);s(x0+1,12,INK);s(x0+1,13,INK);
 
   if(tall){row(10,[x0+1,x0+2],INK)}
   s(x0,12,"#ffffff");s(x0+2,13,"#ffffff");
   s(x0,12,"#ffffff");s(x0+2,13,"#ffffff");                       /* highlight */
 
+  if(e==="lashes"){s(i?x0+3:x0-1,10,INK);s(i?x0+4:x0-2,11,INK);s(x0,13,"#ffffff");s(x0+2,12,"#ffffff")}
+  if(e==="star"){r(x0,12,x0+2,14,"#ffe27a");s(x0+1,11,"#ffe27a");s(x0+1,12,"#fff7d0");s(x0+1,13,"#fff7d0");s(x0,14,"#ff9d2e");s(x0+2,14,"#ff9d2e");s(x0,12,"#ffffff");s(x0+2,13,"#ffffff")}
   if(e==="heart"){s(x0+1,13,"#ff3d6e");s(x0+2,13,"#ff3d6e");s(x0+1,12,"#ff7a9c");s(x0+2,12,"#ff7a9c");s(x0+1,14,"#ff3d6e");s(x0+2,14,"#ff3d6e")}
   if(e==="slit"){r(x0+1,12,x0+2,14,ec);s(x0+1,13,INK);s(x0+2,13,INK);s(x0+1,12,"#ffffff")}
   if(e==="sparkle"){s(x0+2,12,"#ffffff");s(x0+1,14,"#ffe9a8")}
@@ -257,6 +261,8 @@ function grid(p){
  else if(m==="oh"){r(11,15,12,16,INK)}
  else if(m==="kitty"){row(15,[10,12,13],INK);row(16,[11,12],INK);s(11,15,INK)}
  else if(m==="frown"){row(15,[11,12],INK);row(16,[10,13],INK)}
+ else if(m==="fang"){row(15,[10,13],INK);row(16,[11,12],INK);s(11,17,"#ffffff");s(11,16,"#ffffff")}
+ else if(m==="laugh"){r(10,15,13,16,INK);row(15,[10,11,12,13],INK);r(11,16,12,16,"#e2506e");row(15,[11,12],"#ffffff")}
  else if(m==="braces"){r(10,15,13,16,"#ffffff");row(15,[10,13],INK);row(16,[10,11,12,13],INK);row(15,[11,12],"#9aa7c7")}
  if(ex.freckles){row(13,[7,9,15,17].map(function(q){return q}),null);[[6,13],[8,14],[15,14],[17,13]].forEach(function(q){s(q[0],q[1],sh(sk,.7))})}
  if(ex.scar){row(8,[17],"#b0453a");row(9,[16],"#b0453a");row(10,[15],"#b0453a")}
@@ -290,5 +296,5 @@ function drawPixel(canvas,p,scale,opts){opts=opts||{};scale=scale||6;var g=grid(
   if(v){c.fillStyle=v}else if(ol&&(at(x-1,y)||at(x+1,y)||at(x,y-1)||at(x,y+1))){c.fillStyle=oc}else continue;
   c.fillRect((x-V[0]+ol)*scale,(y-V[1]+ol)*scale,scale,scale)}
  return canvas}
-P.drawPixel=drawPixel;P.shade=P.shade||sh;P.GRID=[GW,GH];
+P.drawPixel=drawPixel;P.pixelGrid=grid;P.shade=P.shade||sh;P.GRID=[GW,GH];
 })(typeof window!=="undefined"?window:this);
