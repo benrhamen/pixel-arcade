@@ -39,11 +39,11 @@ a{color:var(--teal)}footer{margin-top:36px;color:var(--dim);font-size:13px}
 .step canvas{width:60px;height:auto;image-rendering:pixelated;flex:none;background:#0b0820;border-radius:4px}.step h2{margin:0 0 4px;font:700 18px/1.25 ui-monospace,monospace}.step p{margin:0 0 10px;color:var(--dim);font-size:14px}.step .btn{padding:8px 14px;font-size:14px}
 .step2{font:700 18px ui-monospace,monospace;margin:0 0 12px}
 
-#cc{background:linear-gradient(180deg,#ffe9f5,#e9e4ff 60%,#dff7ef);color:#5b3a6b;border:3px solid #5b3a6b;border-radius:24px;padding:18px 14px 22px;box-shadow:0 6px 0 #5b3a6b,0 0 24px #ff8fc155;position:relative;overflow:hidden}
+#cc{background:linear-gradient(180deg,#ffe9f5,#e9e4ff 60%,#dff7ef);color:#5b3a6b;border:3px solid #5b3a6b;border-radius:24px;padding:18px 14px 22px;box-shadow:0 6px 0 #5b3a6b,0 0 24px #ff8fc155;position:relative;overflow:clip}
 #cc:before,#cc:after{content:"\2726";position:absolute;color:#ffb3d9;font-size:22px;animation:tw 2.4s ease-in-out infinite}#cc:before{top:10px;right:16px}#cc:after{bottom:14px;left:14px;animation-delay:1.2s;color:#b9a7ff}
 @keyframes tw{0%,100%{opacity:.25;transform:scale(.8)}50%{opacity:1;transform:scale(1.2) rotate(15deg)}}
-#cc .cc-top{background:#fff;border:3px solid #5b3a6b;border-radius:20px;padding:12px;box-shadow:0 4px 0 #5b3a6b}
-#cc #prev{background:radial-gradient(circle at 50% 40%,#fff 0,#ffe1f0 70%);border:3px solid #5b3a6b;border-radius:24px;width:150px;height:auto;padding:6px;animation:bob 2.2s ease-in-out infinite}
+#cc .cc-top{background:#fff;border:3px solid #5b3a6b;border-radius:20px;padding:8px 12px;box-shadow:0 4px 0 #5b3a6b;position:sticky;top:6px;z-index:30;flex-wrap:nowrap;margin-bottom:6px}.pvn{min-width:0}.pvl{font:700 11px ui-monospace,monospace;color:#b07acb;letter-spacing:1px}#pvname{font:800 22px ui-monospace,monospace;color:#5b3a6b;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+#cc #prev{background:radial-gradient(circle at 50% 40%,#fff 0,#ffe1f0 70%);border:3px solid #5b3a6b;border-radius:24px;width:96px;height:auto;padding:4px;flex:none;animation:bob 2.2s ease-in-out infinite}
 @keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
 #cc .cc-top p,#cc .hint{color:#7b5a8d}
 #cc .field>label,#cc .field>.lb{color:#5b3a6b;font-size:22px;text-transform:none;margin-bottom:4px}
@@ -65,7 +65,7 @@ a{color:var(--teal)}footer{margin-top:36px;color:var(--dim);font-size:13px}
 <div class="who"><canvas id="mini" width="48" height="48" aria-hidden="true" style="display:none"></canvas><h1 style="margin:0">PIXEL ARCADE</h1></div>
 <p class="sub">Free browser games. No ads, no sign-up. Works on phone and desktop.</p>
 <div id="cc">
-<div class="cc-top"><canvas id="prev" aria-label="Your character preview"></canvas><p>Set it once, then every Pixel Arcade game on this device shows your adventure name and look, each in its own art style. Saved only on this device. Your adventure name is made up: please do not use your real name.</p></div>
+<div class="cc-top"><canvas id="prev" aria-label="Your character preview"></canvas><div class="pvn"><div class="pvl">YOUR ADVENTURER</div><div id="pvname">NEW HERO</div></div></div><p class="hint" style="margin:10px 4px 0">Set it once, then every Pixel Arcade game on this device shows your adventure name and look, each in its own art style. Saved only on this device. Your adventure name is made up: please do not use your real name.</p>
 <div class="field"><label for="nm">Adventure name</label><input type="text" id="nm" maxlength="12" autocomplete="off" autocapitalize="characters" spellcheck="false" placeholder="e.g. NEON FOX"><div class="hint" id="nmh"></div></div>
 <div id="opts"></div>
 <div class="acts"><button class="btn" id="save">Save</button><button class="btn alt" id="done">Done: pick a game</button><button class="btn alt" id="rand">Randomise</button><button class="btn alt" id="reset">Reset</button><a class="btn alt hidden" id="back" href="#">Back to game</a></div>
@@ -89,10 +89,10 @@ const GAMES=[
  {name:"Pixel Lexicon",icon:"lexicon",text:"Word game: Tron-style five-letter hunt. Find every word before time runs out.",url:"https://benrhamen.github.io/neon-lexicon/?v=2"},
  {name:"Neon Lab: Atoms, Alchemy & DNA",icon:"lab",text:"Mix elements, brew potions, fix DNA. Quest-driven periodic table.",url:"https://benrhamen.github.io/neon-lab/?v=1"},
  {name:"Pixel Cities: Hong Kong",city:1,icon:"dragon",text:"Retro arcade gamebook through Pixel Harbour, our Hong Kong.",url:"https://benrhamen.github.io/neon-dragon/?v=3"},
- {name:"Pixel Cities: Rome",city:1,icon:"rome",text:"Discover Rome's landmarks and food with twelve Western zodiac friends.",url:"https://benrhamen.github.io/neon-cities/?v=cities3#/rome"},
- {name:"Pixel Cities: Paris",city:1,icon:"paris",text:"Explore Paris through fairy tales and La Fontaine's animal friends.",url:"https://benrhamen.github.io/neon-cities/?v=cities3#/paris"},
- {name:"Pixel Cities: London",city:1,icon:"london",text:"Follow British folklore friends through London's landmarks and side quests.",url:"https://benrhamen.github.io/neon-cities/?v=cities3#/london"},
- {name:"Pixel Cities: New York",city:1,icon:"newyork",text:"Meet twelve original city Sparks across New York's bridges, gardens and skyline.",url:"https://benrhamen.github.io/neon-cities/?v=cities3#/new-york"}
+ {name:"Pixel Cities: Rome",city:1,icon:"rome",text:"Discover Rome's landmarks and food with twelve Western zodiac friends.",url:"https://benrhamen.github.io/neon-cities/?v=tales1#/rome"},
+ {name:"Pixel Cities: Paris",city:1,icon:"paris",text:"Explore Paris through fairy tales and La Fontaine's animal friends.",url:"https://benrhamen.github.io/neon-cities/?v=tales1#/paris"},
+ {name:"Pixel Cities: London",city:1,icon:"london",text:"Follow British folklore friends through London's landmarks and side quests.",url:"https://benrhamen.github.io/neon-cities/?v=tales1#/london"},
+ {name:"Pixel Cities: New York",city:1,icon:"newyork",text:"Meet twelve original city Sparks across New York's bridges, gardens and skyline.",url:"https://benrhamen.github.io/neon-cities/?v=tales1#/new-york"}
 ];
 const ICONS={"atlas": ["....wwww....", "..wwbbggww..", ".wbbbggbbbw.", ".wbbgggbbbw.", "wbbbggbbggbw", "wbbbbbbgggbw", "wbggbbbbggbw", "wbgggbbbbbbw", ".wbggbbbbbw.", ".wbbbbbggbw.", "..wwbbbbww..", "....wwww...."], "lexicon": ["pppppppppppp", "p..........p", "p....ww....p", "p...wwww...p", "p..ww..ww..p", "p..ww..ww..p", "p..wwwwww..p", "p..ww..ww..p", "p..ww..ww..p", "p..........p", "p..........p", "pppppppppppp"], "chef": ["....wwww....", "..wwwwwwww..", ".wwwwwwwwwc.", ".wwwwwwwwcc.", ".wwwwwwwwwc.", "..wwwwwwwc..", "...wwwwwcc..", "...wwwwwww..", "...tttttt...", "...tttttt...", "...tttttt...", "............"], "dragon": ["..y......y..", "..gg....gg..", ".gggggggggg.", ".ggyggggyggg", ".gggggggggg.", "..gggggggg..", "..ggdggdgg..", "..gggggggg..", "...gwggwg...", "....gggg....", "............", "............"], "bird": ["....bbbb....", "...bbbbbb...", "..bbwwbbbb..", "..bbwdbbbbo.", "..bbbbbbooo.", ".bbbbbbbbo..", "bbbbbbbbbb..", ".bbbbbbbb...", "..bbbbbbb...", "...o..o..y.y", "..oo.oo...y.", ".........y.y"], "lab": ["...wwwwww...", "....cccc....", "....c..c....", "....c.pc....", "...c..p.c...", "..c.ggggc...", "..cgggggcc..", ".cggpggggc..", ".cgggggggc..", ".cggggpggc..", "..cccccccc..", "............"], "rome": ["............", "............", "..oooooooo..", ".oodoodoodo.", ".oooooooooo.", ".oodoodoodo.", ".oooooooooo.", ".oodoodoodo.", ".oooooooooo.", ".oodoodoodo.", "..oooooooo..", "............"], "paris": [".....yy.....", ".....cc.....", "....cccc....", "....c..c....", "...cccccc...", "...c....c...", "..cccccccc..", "..c......c..", ".cc......cc.", ".c........c.", "cc........cc", "............"], "london": [".....oo.....", "....oooo....", "....cccc....", "....cwwc....", "....cwdc....", "....cccc....", "....cccc....", "...cccccc...", "...cc..cc...", "...cccccc...", "..cccccccc..", "............"], "newyork": [".....yy.....", ".....yy.....", "....tttt....", "...t.tt.t...", "...t.tt.t...", "....tttt....", "....tttt....", "....tttt....", "...tttttt...", "..tttttttt..", "..tttttttt..", "............"]};
 const PAL={w:"#e9f7ff",b:"#3a7bff",g:"#3ddc84",p:"#ff3fa4",t:"#2de2c8",y:"#ffd23f",o:"#ff8a3d",c:"#b7c4e0",d:"#0b0820",r:"#ff4d4d"};
@@ -128,7 +128,7 @@ function tab(n){var c=n==="cc",ct=n==="ct";cc.style.display=c?"block":"none";gm.
 function hv(){var h=location.hash;return h==="#character"?"cc":h==="#cities"?"ct":"g"}
 function mini(){var m=$("mini"),sa=$("stepav");P.drawPixel(sa,cur,3);sa.style.opacity=P.exists()?1:.45;
  if(P.exists()){m.style.display="block";P.drawPixel(m,cur,2);$("stbtn").textContent="Edit";$("stp").textContent=(cur.name?cur.name+" is ready. ":"Looking good. ")+"Edit it any time."}else{m.style.display="none";$("stbtn").textContent="Create";$("stp").textContent="Pick a look and a made-up name. Every game will use it."}}
-function draw(){P.drawPixel($("prev"),cur,6)}
+function draw(){P.drawPixel($("prev"),cur,4);$("pvname").textContent=cur.name||"NEW HERO"}
 $("stbtn").onclick=function(){history.replaceState(null,"","#character");tab("cc")};
 $("done").onclick=function(){history.replaceState(null,"","#games");tab("g")};
 /* back link: same-origin only, so it can't be used to bounce to another site */
@@ -179,7 +179,7 @@ function upd(){redo.forEach(function(f){f()});draw();msg("")}
 $("nm").value=cur.name;
 $("nm").oninput=function(){var v=P.cleanNickname(this.value),p=P.nicknameProblem(this.value);$("nmh").textContent=p||"";cur.name=p?"":v;if(this.value!==v&&!p)this.value=v;msg("")};
 $("save").onclick=function(){var p=P.nicknameProblem($("nm").value);if(p){$("nmh").textContent=p;return}cur.name=P.cleanNickname($("nm").value);cur=P.clean(cur);
- if(P.save(cur)){mini();msg("Saved. Open any game to see your character.")}else msg("This browser blocks saving, so the character can't be kept.")};
+ if(P.save(cur)){mini();history.replaceState(null,"","#games");tab("g");msg("")}else msg("This browser blocks saving, so the character can't be kept.")};
 function rnd(a){return a[Math.floor(Math.random()*a.length)]}
 function rc(){return "#"+("000000"+Math.floor(Math.random()*16777216).toString(16)).slice(-6)}
 $("rand").onclick=function(){var n=cur.name;cur=P.clean({name:n,skinHex:rnd(P.SKINS),hairStyle:rnd(P.HAIR_STYLES),hairHex:Math.random()<.5?rnd(P.HAIR_COLORS):rc(),eyes:Math.floor(Math.random()*P.EYES.length),eyeHex:rc(),mouth:Math.floor(Math.random()*P.MOUTHS.length),outfitStyle:Math.floor(Math.random()*P.OUTFIT_STYLES.length),outfitHex:rc(),accentHex:rc(),accessory:rnd(P.ACCESSORIES),extras:P.EXTRAS.reduce(function(o,k){if(Math.random()<.2)o[k]=true;return o},{})});upd()};
