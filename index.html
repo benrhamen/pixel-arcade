@@ -12,7 +12,7 @@ h1{font:700 clamp(28px,7vw,48px)/1.1 ui-monospace,monospace;color:var(--teal);te
 .grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fill,minmax(240px,1fr))}
 .card{display:block;padding:18px;border:2px solid var(--teal);border-radius:6px;color:inherit;text-decoration:none;background:#120e30;box-shadow:0 0 14px #2de2c844}
 .card:nth-child(even){border-color:var(--pink);box-shadow:0 0 14px #ff3fa444}
-.card h2{margin:0 0 6px;font:700 20px ui-monospace,monospace}.card p{margin:0 0 12px;color:var(--dim)}
+.card{display:flex;gap:14px;align-items:flex-start}.ico{width:56px;height:56px;flex:none;image-rendering:pixelated;shape-rendering:crispEdges}.card .tx{min-width:0}.card h2{margin:0 0 6px;font:700 20px ui-monospace,monospace}.card p{margin:0 0 12px;color:var(--dim)}
 .play{font:700 14px ui-monospace,monospace;color:var(--teal)}
 section.more{margin-top:36px;border-top:1px solid #2b2760;padding-top:20px}
 section.more h3{margin:0 0 8px;font:700 18px ui-monospace,monospace}
@@ -31,12 +31,16 @@ a{color:var(--teal)}footer{margin-top:36px;color:var(--dim);font-size:13px}
 <script>
 /* To add a game, add one line here. */
 const GAMES=[
- {name:"Pixel Atlas",text:"Geography game: neon pixel quiz with maps, flags and anthems.",url:"https://benrhamen.github.io/pixel-atlas/?v=1"},
- {name:"Neon Lexicon",text:"Word game: Tron-style five-letter hunt. Find every word before time runs out.",url:"https://benrhamen.github.io/neon-lexicon/?v=1"},
- {name:"Pixel Chef",text:"Cooking game: kawaii kitchen that teaches ingredients and recipes.",url:"https://benrhamen.github.io/pixel-chef/?v=1"},
- {name:"Neon Dragon",text:"Retro arcade gamebook: an adventure through Pixel Harbour.",url:"https://benrhamen.github.io/neon-dragon/?v=1"},
- {name:"Neon Bird Rescue",text:"Maths game: pixel-art multiplication with customizable lock-pickers.",url:"https://benrhamen.github.io/neon-bird-rescue/?v=1"}
+ {name:"Pixel Chef",icon:"chef",text:"Cooking game: kawaii kitchen that teaches ingredients and recipes.",url:"https://benrhamen.github.io/pixel-chef/?v=2"},
+ {name:"Neon Dragon",icon:"dragon",text:"Retro arcade gamebook: an adventure through Pixel Harbour.",url:"https://benrhamen.github.io/neon-dragon/?v=2"},
+ {name:"Pixel Atlas",icon:"atlas",text:"Geography game: neon pixel quiz with maps, flags and anthems.",url:"https://benrhamen.github.io/pixel-atlas/?v=2"},
+ {name:"Neon Bird Rescue",icon:"bird",text:"Maths game: pixel-art multiplication with customizable lock-pickers.",url:"https://benrhamen.github.io/neon-bird-rescue/?v=2"},
+ {name:"Neon Lexicon",icon:"lexicon",text:"Word game: Tron-style five-letter hunt. Find every word before time runs out.",url:"https://benrhamen.github.io/neon-lexicon/?v=2"}
 ];
+const ICONS={"atlas": ["....wwww....", "..wwbbggww..", ".wbbbggbbbw.", ".wbbgggbbbw.", "wbbbggbbggbw", "wbbbbbbgggbw", "wbggbbbbggbw", "wbgggbbbbbbw", ".wbggbbbbbw.", ".wbbbbbggbw.", "..wwbbbbww..", "....wwww...."], "lexicon": ["pppppppppppp", "p..........p", "p....ww....p", "p...wwww...p", "p..ww..ww..p", "p..ww..ww..p", "p..wwwwww..p", "p..ww..ww..p", "p..ww..ww..p", "p..........p", "p..........p", "pppppppppppp"], "chef": ["....wwww....", "..wwwwwwww..", ".wwwwwwwwwc.", ".wwwwwwwwcc.", ".wwwwwwwwwc.", "..wwwwwwwc..", "...wwwwwcc..", "...wwwwwww..", "...tttttt...", "...tttttt...", "...tttttt...", "............"], "dragon": ["..y......y..", "..gg....gg..", ".gggggggggg.", ".ggyggggyggg", ".gggggggggg.", "..gggggggg..", "..ggdggdgg..", "..gggggggg..", "...gwggwg...", "....gggg....", "............", "............"], "bird": ["....bbbb....", "...bbbbbb...", "..bbwwbbbb..", "..bbwdbbbbo.", "..bbbbbbooo.", ".bbbbbbbbo..", "bbbbbbbbbb..", ".bbbbbbbb...", "..bbbbbbb...", "...o..o.....", "..oo.oo.....", "............"]};
+const PAL={w:"#e9f7ff",b:"#3a7bff",g:"#3ddc84",p:"#ff3fa4",t:"#2de2c8",y:"#ffd23f",o:"#ff8a3d",c:"#b7c4e0",d:"#0b0820",r:"#ff4d4d"};
+function icon(k){const rows=ICONS[k];let r="";rows.forEach((row,y)=>{[...row].forEach((ch,x)=>{if(PAL[ch])r+="<rect x='"+x+"' y='"+y+"' width='1' height='1' fill='"+PAL[ch]+"'/>"})});
+ return "<svg class='ico' viewBox='0 0 12 12' aria-hidden='true'>"+r+"</svg>"}
 /* Promos stay hidden until live is true and url is a real link. */
 const PROMOS=[
  {live:false,title:"Moving to Hong Kong? Starter pack (EN/FR)",text:"20 steps, checklists and worksheets for your first 72 hours to first month.",url:""}
@@ -44,7 +48,7 @@ const PROMOS=[
 const TIP_URL=""; /* Ko-fi link, once created */
 const g=document.getElementById("games");
 GAMES.forEach(x=>{const a=document.createElement("a");a.className="card";a.href=x.url;
- a.innerHTML="<h2></h2><p></p><span class='play'>PLAY &rarr;</span>";
+ a.innerHTML=icon(x.icon)+"<div class='tx'><h2></h2><p></p><span class='play'>PLAY &rarr;</span></div>";
  a.querySelector("h2").textContent=x.name;a.querySelector("p").textContent=x.text;g.appendChild(a)});
 const p=document.getElementById("promos");let any=false;
 PROMOS.filter(x=>x.live&&x.url).forEach(x=>{any=true;const d=document.createElement("p");
