@@ -2,7 +2,7 @@
 <html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Pixel Arcade</title>
-<meta name="description" content="Free browser games: geography, words and cooking. No ads, no sign-up.">
+<link rel="manifest" href="manifest.webmanifest"><link rel="apple-touch-icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAALQAAAC0CAIAAACyr5FlAAACiUlEQVR4nO3dsW0UQRiA0TtEYMmhQwvJIiBBQoIOoAoX4CIogSIogCqgAxOREJAgh67BJIT+bs7a0+4g3otHt3OnTxP8u9rbn59d7eAxz7beAPMSB0kcJHGQxEESB0kcJHGQxEESB0kcJHGQxEESB0kcJHGQxEESB0kcJHGQxEESB0kcJHGQxEESB0kcJHGQxEESB0kcJHGQxEESB0kcJHGQxEESB0kcJHGQxEESB0kcJHGQnm+9gb9e/vyy9RYm8uvV9dZb2O2cHBwgDpI4SOIgiYMkDpI4SOIgiYMkDtJK4/PhdPz+3cd1dvJPGP5c68zXnRwkcZDEQRIHSRwkcZDEQRIHSRwkcZDEQdqfn10t/5QVbp18//1tuObti/cLr3ISd69vDi+4/PF54SUubj8N1yy//+LkIImDJA6SOEjiIImDJA6SOEjiIImDNMubfY6Zji//kP9nvn4STg6SOEjiIImDJA6SOEjiIImDJA6SOEizjM+Hg+1Jnj4fTr53pxh+3319OLzgzcILHMfJQRIHSRwkcZDEQRIHSRwkcZDEQRIHaZbx+dAkD46v81z45Yf94QUXtyvswslBEwdJHCRxkMRBEgdJHCRxkMRBEgdJHKTTvBh/yJ8OP8nwvff+dJiNiYMkDpI4SOIgiYMkDpI4SOIgiYO00vh8aDhfP8Y6Q+Wh5d9lki/i5CCJgyQOkjhI4iCJgyQOkjhI4iCJgzTL+JwJOTlI4iCJgyQOkjhI4iCJgyQOkjhI4iCJgyQOkjhI4iCJgyQOkjhI4iCJgyQOkjhI4iCJgyQOkjhI4iCJgyQOkjhI4iCJgyQOkjhI4iCJgyQOkjhI4iCJgyQOkjhI4iCJgyQO0h8ZQzjSp6Tn1gAAAABJRU5ErkJggg=="><meta name="theme-color" content="#0b0820"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="Pixel Arcade"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><meta name="description" content="Free browser games: geography, words, maths, cooking and science. No ads, no sign-up.">
 <style>
 :root{--bg:#0b0820;--ink:#e9f7ff;--dim:#9aa7c7;--teal:#2de2c8;--pink:#ff3fa4}
 *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 system-ui,sans-serif}
@@ -35,9 +35,10 @@ const GAMES=[
  {name:"Neon Dragon",icon:"dragon",text:"Retro arcade gamebook: an adventure through Pixel Harbour.",url:"https://benrhamen.github.io/neon-dragon/?v=2"},
  {name:"Pixel Atlas",icon:"atlas",text:"Geography game: neon pixel quiz with maps, flags and anthems.",url:"https://benrhamen.github.io/pixel-atlas/?v=2"},
  {name:"Neon Bird Rescue",icon:"bird",text:"Maths game: pixel-art multiplication with customizable lock-pickers.",url:"https://benrhamen.github.io/neon-bird-rescue/?v=2"},
- {name:"Neon Lexicon",icon:"lexicon",text:"Word game: Tron-style five-letter hunt. Find every word before time runs out.",url:"https://benrhamen.github.io/neon-lexicon/?v=2"}
+ {name:"Neon Lexicon",icon:"lexicon",text:"Word game: Tron-style five-letter hunt. Find every word before time runs out.",url:"https://benrhamen.github.io/neon-lexicon/?v=2"},
+ {name:"Neon Lab: Atoms, Alchemy & DNA",icon:"lab",text:"Mix elements, brew potions, fix DNA. Quest-driven periodic table.",url:"https://benrhamen.github.io/neon-lab/?v=1"}
 ];
-const ICONS={"atlas": ["....wwww....", "..wwbbggww..", ".wbbbggbbbw.", ".wbbgggbbbw.", "wbbbggbbggbw", "wbbbbbbgggbw", "wbggbbbbggbw", "wbgggbbbbbbw", ".wbggbbbbbw.", ".wbbbbbggbw.", "..wwbbbbww..", "....wwww...."], "lexicon": ["pppppppppppp", "p..........p", "p....ww....p", "p...wwww...p", "p..ww..ww..p", "p..ww..ww..p", "p..wwwwww..p", "p..ww..ww..p", "p..ww..ww..p", "p..........p", "p..........p", "pppppppppppp"], "chef": ["....wwww....", "..wwwwwwww..", ".wwwwwwwwwc.", ".wwwwwwwwcc.", ".wwwwwwwwwc.", "..wwwwwwwc..", "...wwwwwcc..", "...wwwwwww..", "...tttttt...", "...tttttt...", "...tttttt...", "............"], "dragon": ["..y......y..", "..gg....gg..", ".gggggggggg.", ".ggyggggyggg", ".gggggggggg.", "..gggggggg..", "..ggdggdgg..", "..gggggggg..", "...gwggwg...", "....gggg....", "............", "............"], "bird": ["....bbbb....", "...bbbbbb...", "..bbwwbbbb..", "..bbwdbbbbo.", "..bbbbbbooo.", ".bbbbbbbbo..", "bbbbbbbbbb..", ".bbbbbbbb...", "..bbbbbbb...", "...o..o.....", "..oo.oo.....", "............"]};
+const ICONS={"atlas": ["....wwww....", "..wwbbggww..", ".wbbbggbbbw.", ".wbbgggbbbw.", "wbbbggbbggbw", "wbbbbbbgggbw", "wbggbbbbggbw", "wbgggbbbbbbw", ".wbggbbbbbw.", ".wbbbbbggbw.", "..wwbbbbww..", "....wwww...."], "lexicon": ["pppppppppppp", "p..........p", "p....ww....p", "p...wwww...p", "p..ww..ww..p", "p..ww..ww..p", "p..wwwwww..p", "p..ww..ww..p", "p..ww..ww..p", "p..........p", "p..........p", "pppppppppppp"], "chef": ["....wwww....", "..wwwwwwww..", ".wwwwwwwwwc.", ".wwwwwwwwcc.", ".wwwwwwwwwc.", "..wwwwwwwc..", "...wwwwwcc..", "...wwwwwww..", "...tttttt...", "...tttttt...", "...tttttt...", "............"], "dragon": ["..y......y..", "..gg....gg..", ".gggggggggg.", ".ggyggggyggg", ".gggggggggg.", "..gggggggg..", "..ggdggdgg..", "..gggggggg..", "...gwggwg...", "....gggg....", "............", "............"], "bird": ["....bbbb....", "...bbbbbb...", "..bbwwbbbb..", "..bbwdbbbbo.", "..bbbbbbooo.", ".bbbbbbbbo..", "bbbbbbbbbb..", ".bbbbbbbb...", "..bbbbbbb...", "...o..o..y.y", "..oo.oo...y.", ".........y.y"], "lab": ["...wwwwww...", "....cccc....", "....c..c....", "....c.pc....", "...c..p.c...", "..c.ggggc...", "..cgggggcc..", ".cggpggggc..", ".cgggggggc..", ".cggggpggc..", "..cccccccc..", "............"]};
 const PAL={w:"#e9f7ff",b:"#3a7bff",g:"#3ddc84",p:"#ff3fa4",t:"#2de2c8",y:"#ffd23f",o:"#ff8a3d",c:"#b7c4e0",d:"#0b0820",r:"#ff4d4d"};
 function icon(k){const rows=ICONS[k];let r="";rows.forEach((row,y)=>{[...row].forEach((ch,x)=>{if(PAL[ch])r+="<rect x='"+x+"' y='"+y+"' width='1' height='1' fill='"+PAL[ch]+"'/>"})});
  return "<svg class='ico' viewBox='0 0 12 12' aria-hidden='true'>"+r+"</svg>"}
@@ -56,4 +57,8 @@ PROMOS.filter(x=>x.live&&x.url).forEach(x=>{any=true;const d=document.createElem
 if(TIP_URL){any=true;const t=document.getElementById("tip");t.className="";
  const a=document.createElement("a");a.href=TIP_URL;a.textContent="Buy me a coffee";t.append("Like the games? ",a)}
 if(!any)document.getElementById("more").className="hidden";
-</script></main></body></html>
+</script></main><script>
+/* Offline support: the worker lives at the site root so it also covers the games. */
+if('serviceWorker' in navigator){navigator.serviceWorker.register('/sw.js',{scope:'/'}).catch(function(){})}
+</script>
+</body></html>
