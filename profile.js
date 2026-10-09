@@ -70,6 +70,8 @@ function sprite(p){p=clean(p);var g=[],i,j;for(i=0;i<16;i++){g.push([]);for(j=0;
  if(os===7){r(6,11,9,12,"#ffffff");r(7,12,8,15,ac)}
  if(os===8){r(3,11,12,15,"#f5f5f5");r(6,11,9,15,oc)}
  if(os===9){r(3,12,12,12,ac);r(3,14,12,14,ac)}
+ if(os===0||os===1||os===2||os===6||os===7||os===8||os===9)r(3,15,12,15,ac);
+ s(2,13,ac);s(13,13,ac);r(5,11,6,11,ac);r(9,11,10,11,ac);
  r(7,11,8,11,sk);
  if(ex.magicBoots){r(4,15,5,15,"#ffd23f");r(10,15,11,15,"#ffd23f")}
  r(4,4,11,10,sk);s(4,4,null);s(11,4,null);s(4,10,null);s(11,10,null);
@@ -120,6 +122,7 @@ function sprite(p){p=clean(p);var g=[],i,j;for(i=0;i<16;i++){g.push([]);for(j=0;
  if(h==="wavy"){r(3,5,4,11,hc);r(11,5,12,11,hc);s(2,7,hc);s(13,9,hc)}
  if(h==="undercut"){r(5,2,10,3,hc);r(4,4,11,4,shade(hc,0.8))}
  if(h==="mullet"){r(5,2,10,3,hc);r(3,5,4,5,hc);r(11,5,12,5,hc);r(4,9,11,11,hc)}
+ if(h!=="bald"&&h!=="buzz"&&h!=="mohawk"){s(10,4,ac);s(10,5,shade(ac,0.8))}
  var a=p.accessory;
  if(a==="cap"){r(4,3,11,4,"#e84a4a");r(3,5,7,5,"#b83030")}
  if(a==="glasses"){r(5,7,6,7,ink);r(9,7,10,7,ink);r(7,7,8,7,ink);s(6,7,"#ffffff");s(9,7,"#ffffff")}
@@ -127,9 +130,9 @@ function sprite(p){p=clean(p);var g=[],i,j;for(i=0;i<16;i++){g.push([]);for(j=0;
  if(a==="goggles"){r(5,6,10,6,"#8a6a3a");r(5,7,6,8,"#29e7ff");r(9,7,10,8,"#29e7ff")}
  if(a==="headphones"){r(4,3,11,3,"#9aa7c7");r(3,6,3,8,"#29e7ff");r(12,6,12,8,"#29e7ff")}
  if(a==="crown"){r(5,2,10,3,"#ffd23f");s(5,1,"#ffd23f");s(7,1,"#ffd23f");s(9,1,"#ffd23f");s(10,1,"#ffd23f");s(6,1,null);s(8,1,null)}
- if(a==="wizardHat"){r(3,4,12,4,"#5b3fd0");r(5,3,10,3,"#5b3fd0");r(6,2,9,2,"#5b3fd0");r(7,1,8,1,"#5b3fd0");s(8,0,"#5b3fd0");s(9,3,"#ffd23f")}
+ if(a==="wizardHat"){r(3,4,12,4,"#5b3fd0");r(5,3,10,3,"#5b3fd0");r(6,2,9,2,"#5b3fd0");r(7,1,8,1,"#5b3fd0");s(8,0,"#5b3fd0");r(5,3,10,3,ac)}
  if(a==="beanie"){r(4,2,11,4,ac);r(4,4,11,4,shade(ac,0.7));s(7,1,"#ffffff");s(8,1,"#ffffff")}
- if(a==="bow"){r(9,2,11,3,"#ff3fa4");s(10,3,"#ffd23f")}
+ if(a==="bow"){r(9,2,11,3,ac);s(10,3,shade(ac,0.6))}
  if(a==="headband"){r(4,4,11,4,ac)}
  if(a==="halo"){r(5,0,10,0,"#ffd23f");s(4,1,"#ffd23f");s(11,1,"#ffd23f");r(5,2,10,2,null)}
  if(a==="horns"){s(4,2,"#ff4d4d");s(4,3,"#ff4d4d");s(11,2,"#ff4d4d");s(11,3,"#ff4d4d");s(3,1,"#ff4d4d");s(12,1,"#ff4d4d")}
@@ -139,9 +142,13 @@ function sprite(p){p=clean(p);var g=[],i,j;for(i=0;i<16;i++){g.push([]);for(j=0;
  if(a==="mask"){r(4,8,11,10,"#f5f5f5");r(4,8,11,8,"#f5f5f5")}
  if(a==="earrings"){s(3,8,"#ffd23f");s(12,8,"#ffd23f")}
  return g}
-function draw(canvas,p,scale){scale=scale||8;var g=sprite(p),c=canvas.getContext("2d");canvas.width=canvas.height=16*scale;
- c.clearRect(0,0,canvas.width,canvas.height);
- for(var y=0;y<16;y++)for(var x=0;x<16;x++)if(g[y][x]){c.fillStyle=g[y][x];c.fillRect(x*scale,y*scale,scale,scale)}}
+/* opts: {outline:true} adds a 1px dark outline (kawaii look); {crop:[x,y,w,h]} draws only part of the 16x16 grid. */
+function draw(canvas,p,scale,opts){scale=scale||8;opts=opts||{};var g=sprite(p),c=canvas.getContext("2d"),cr=opts.crop||[0,0,16,16],ol=opts.outline?1:0;
+ var W=(cr[2]+2*ol)*scale,H=(cr[3]+2*ol)*scale;canvas.width=W;canvas.height=H;c.clearRect(0,0,W,H);
+ function at(x,y){return (x>=0&&x<16&&y>=0&&y<16)?g[y][x]:null}
+ if(ol){c.fillStyle=opts.outlineColor||"#5b3a6b";for(var y=cr[1]-1;y<=cr[1]+cr[3];y++)for(var x=cr[0]-1;x<=cr[0]+cr[2];x++){
+  if(at(x,y))continue;if(at(x-1,y)||at(x+1,y)||at(x,y-1)||at(x,y+1))c.fillRect((x-cr[0]+ol)*scale,(y-cr[1]+ol)*scale,scale,scale)}}
+ for(var y2=cr[1];y2<cr[1]+cr[3];y2++)for(var x2=cr[0];x2<cr[0]+cr[2];x2++){var v=at(x2,y2);if(v){c.fillStyle=v;c.fillRect((x2-cr[0]+ol)*scale,(y2-cr[1]+ol)*scale,scale,scale)}}}
 root.PAProfile={KEY:KEY,SKINS:SKINS,HAIR_COLORS:HAIR_COLORS,OUTFITS:OUTFITS,HAIR_STYLES:HAIR_STYLES,ACCESSORIES:ACCESSORIES,EXTRAS:EXTRAS,EYES:EYES,MOUTHS:MOUTHS,OUTFIT_STYLES:OUTFIT_STYLES,STYLE_BASE:STYLE_BASE,baseStyle:baseStyle,nearest:nearest,hex:hex,
  NICK_MAX:NICK_MAX,defaults:defaults,clean:clean,cleanNickname:cleanNickname,nicknameProblem:nicknameProblem,load:load,save:save,exists:exists,onChange:onChange,sprite:sprite,draw:draw};
 })(typeof window!=="undefined"?window:this);
