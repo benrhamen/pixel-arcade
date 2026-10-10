@@ -83,7 +83,6 @@ a{color:var(--teal)}footer{margin-top:36px;color:var(--dim);font-size:13px}
 <div id="tab-cities" class="hidden"><a class="btn alt" href="#games" id="cback" style="margin-bottom:16px">&larr; All games</a><h2 class="step2">Pixel Cities</h2><div class="grid" id="cgames"></div></div>
 <div id="tab-games"><div class="step" id="step1"><canvas id="stepav" width="64" height="64" aria-hidden="true"></canvas><div class="st"><h2>1. Create your avatar and adventure name</h2><p id="stp">Pick a look and a made-up name. Every game will use it.</p><button class="btn" id="stbtn">Create</button></div></div>
 <h2 class="step2">2. Select your game</h2><div class="grid" id="games"></div>
-<details class="mt" id="mt"><summary>Multiplication table cheat sheet</summary><div class="in"><h4>MULTIPLICATION</h4><div class="eq" id="mteq">Tap a number</div><div class="sc"><table id="mtt"></table></div><p class="hint">Tap a top or side number to light up its row and column. Tap a square to see the sum. Swipe sideways if needed.</p></div></details>
 <section class="more" id="more">
 <h3>Support Pixel Arcade</h3>
 <div id="promos"></div>
@@ -128,16 +127,7 @@ PROMOS.filter(x=>x.live&&x.url).forEach(x=>{any=true;const d=document.createElem
 if(TIP_URL){any=true;const t=document.getElementById("tip");t.className="";
  const a=document.createElement("a");a.href=TIP_URL;a.className="kofi";a.target="_blank";a.rel="noopener";a.textContent="Support on Ko-fi";t.append("Free and ad-free. If your family likes these games, you can help keep them going. ",a)}
 if(!any)document.getElementById("more").className="hidden";
-(function(){var t=document.getElementById("mtt"),e=document.getElementById("mteq"),m=document.getElementById("mt"),K=["#ff5d5d","#ff9a3c","#ffd23c","#a6e04a","#3cd37a","#2de2c8","#3cb8ff","#5b7bff","#9a6bff","#d46bff","#ff6bc4","#ff8a8a","#c9a227","#7fd6ff","#b0f0a0"],h="<tr><th></th>";
-for(var c=1;c<=15;c++)h+="<th data-c='"+c+"' style='--bg:"+K[c-1]+"'>"+c+"</th>";h+="</tr>";
-for(var r=1;r<=15;r++){h+="<tr><th data-r='"+r+"' style='--bg:"+K[r-1]+"'>"+r+"</th>";for(c=1;c<=15;c++)h+="<td data-r='"+r+"' data-c='"+c+"'"+(r===c?" class='sq'":" style='--bg:"+K[Math.min(r,c)-1]+"'")+">"+r*c+"</td>";h+="</tr>"}
-t.innerHTML=h;
-function clr(){[].forEach.call(t.querySelectorAll(".hl,.sel"),function(x){x.classList.remove("hl","sel")});m.classList.remove("on")}
-function lit(sel){[].forEach.call(t.querySelectorAll(sel),function(x){x.classList.add("hl")});m.classList.add("on")}
-t.addEventListener("click",function(ev){var x=ev.target.closest("td,th");if(!x)return;clr();var r=x.dataset.r,c=x.dataset.c;
-if(x.tagName==="TD"){lit("[data-r='"+r+"'],[data-c='"+c+"']");x.classList.add("sel");e.textContent=r+" x "+c+" = "+r*c}
-else if(!r&&!c){e.textContent="Tap a number"}
-else{var n=r||c;lit("[data-r='"+n+"'],[data-c='"+n+"']");e.textContent="The "+n+" times table"}})})();
+
 </script></main><script>
 /* Offline support: the worker lives at the site root so it also covers the games. */
 if('serviceWorker' in navigator){navigator.serviceWorker.register('/sw.js',{scope:'/'}).catch(function(){})}
