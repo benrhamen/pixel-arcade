@@ -20,7 +20,7 @@ h1{font:700 clamp(28px,7vw,48px)/1.1 ui-monospace,monospace;color:var(--teal);te
 .grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fill,minmax(240px,1fr))}
 .card{display:block;padding:18px;border:2px solid var(--teal);border-radius:6px;color:inherit;text-decoration:none;background:#120e30;box-shadow:0 0 14px #2de2c844}
 .card.neon{border-color:var(--pink);box-shadow:0 0 14px #ff3fa444}.card.pixel{border-color:var(--teal);box-shadow:0 0 14px #2de2c844}
-.card{display:flex;gap:14px;align-items:flex-start}.ico{width:56px;height:56px;flex:none;image-rendering:pixelated;shape-rendering:crispEdges}.card .tx{min-width:0}.card.wip{opacity:.5;filter:grayscale(1);cursor:default;pointer-events:none;box-shadow:none;border-color:#6a6a86}.card h2{margin:0 0 6px;font:700 20px ui-monospace,monospace}.card p{margin:0 0 12px;color:var(--dim)}
+.card{display:flex;gap:14px;align-items:flex-start}.ico{width:56px;height:56px;flex:none;image-rendering:pixelated;shape-rendering:crispEdges}.card .tx{min-width:0}.card.preview{opacity:.6;filter:grayscale(1);box-shadow:none;border-color:#6a6a86}.card.wip{opacity:.5;filter:grayscale(1);cursor:default;pointer-events:none;box-shadow:none;border-color:#6a6a86}.card h2{margin:0 0 6px;font:700 20px ui-monospace,monospace}.card p{margin:0 0 12px;color:var(--dim)}
 .play{font:700 14px ui-monospace,monospace;color:var(--teal)}
 section.more{margin-top:36px;border-top:1px solid #2b2760;padding-top:20px}
 a.kofi{display:inline-block;margin-top:8px;padding:8px 14px;border:2px solid var(--teal);border-radius:6px;color:var(--teal);font:700 14px ui-monospace,monospace;text-decoration:none}#tip{color:#b9b6e6;font-size:14px;line-height:1.5}.mt{margin-top:28px;border:2px solid var(--pink);border-radius:6px;background:#120e30}.mt summary{cursor:pointer;padding:14px 16px;font:700 16px ui-monospace,monospace;list-style:none}.mt summary::-webkit-details-marker{display:none}.mt summary:after{content:"+";float:right;color:var(--pink)}.mt[open] summary:after{content:"-"}.mt .in{padding:0 8px 14px}.mt h4{margin:0 0 6px;text-align:center;font:700 20px ui-monospace,monospace;letter-spacing:3px;color:var(--teal)}.mt .eq{font:700 22px ui-monospace,monospace;text-align:center;min-height:30px;margin:2px 0 8px;color:#fff}.mt .sc{overflow-x:auto;-webkit-overflow-scrolling:touch}.mt table{border-collapse:separate;border-spacing:2px;min-width:580px;width:100%;table-layout:fixed;font:700 12px ui-monospace,monospace}.mt td,.mt th{text-align:center;padding:7px 0;border-radius:3px;cursor:pointer;color:#120e30;background:var(--bg,#555);opacity:.55}.mt th{border-radius:50%;opacity:1;font-size:14px}.mt td.sq{background:#dcd9ff;opacity:.9}.mt.on td,.mt.on th{opacity:.18}.mt.on .hl{opacity:1}.mt td.sel{outline:3px solid #fff;opacity:1}.mt p.hint{margin:8px 0 0;font-size:12px;color:#b9b6e6;text-align:center}section.more h3{margin:0 0 8px;font:700 18px ui-monospace,monospace}
@@ -92,7 +92,7 @@ a{color:var(--teal)}footer{margin-top:36px;color:var(--dim);font-size:13px}
 <script>
 /* To add a game, add one line here. */
 const GAMES=[
- {name:"Neon Art Gallery",icon:"gallery",text:"Discover art, architecture, movements and makers.",wip:1,comingSoon:1},
+ {name:"Neon Art Gallery",icon:"gallery",text:"Discover art, architecture, movements and makers.",url:"https://benrhamen.github.io/neon-art-gallery/",preview:1},
  {name:"Neon Food Lab",icon:"chef",text:"Cooking game: kawaii kitchen that teaches ingredients and recipes.",url:"https://benrhamen.github.io/neon-food-lab/?v=4"},
  {name:"Neon Bird Rescue",icon:"bird",text:"Maths game: cute caged birds, number keys and your own lock-picker.",url:"https://benrhamen.github.io/neon-bird-rescue/?v=3"},
  {name:"Neon Lab: Atoms, Alchemy & DNA",icon:"lab",text:"Mix elements, brew potions, fix DNA. Quest-driven periodic table.",url:"https://benrhamen.github.io/neon-lab/?v=1"},
@@ -118,8 +118,8 @@ const g=document.getElementById("games");
 const CORDER=["rome","paris","london","newyork","dragon"];
 
 let lastFam="";
-GAMES.forEach(x=>{const a=document.createElement("a");a.className="card "+(x.name.indexOf("Neon")===0?"neon":"pixel");if(x.wip){a.classList.add("wip");a.setAttribute("aria-disabled","true")}else a.href=x.url;
- a.innerHTML=icon(x.icon)+"<div class='tx'><h2></h2><p></p><span class='play'>"+(x.comingSoon?"COMING SOON":x.wip?"WORK IN PROGRESS":"PLAY &rarr;")+"</span></div>";
+GAMES.forEach(x=>{const a=document.createElement("a");a.className="card "+(x.name.indexOf("Neon")===0?"neon":"pixel");if(x.wip){a.classList.add("wip");a.setAttribute("aria-disabled","true")}else{a.href=x.url;if(x.preview)a.classList.add("preview")}
+ a.innerHTML=icon(x.icon)+"<div class='tx'><h2></h2><p></p><span class='play'>"+(x.preview?"PREVIEW":x.comingSoon?"COMING SOON":x.wip?"WORK IN PROGRESS":"PLAY &rarr;")+"</span></div>";
  a.querySelector("h2").textContent=x.name;a.querySelector("p").textContent=x.text;(x.city?document.getElementById("cgames"):g).appendChild(a)});
 {const a=document.createElement("a");a.className="card";a.href="#cities";a.innerHTML=icon("newyork")+"<div class='tx'><h2>Pixel Cities</h2><p>Rome, Paris, London, New York and Hong Kong: five city adventures in one place.</p><span class='play'>OPEN &rarr;</span></div>";g.appendChild(a)}
 const p=document.getElementById("promos");let any=false;
