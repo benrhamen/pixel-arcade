@@ -13,7 +13,7 @@ var ACCESSORIES=["none","cap","glasses","headphones","crown","sunglasses","wizar
 var EYES=["dot","wide","sleepy","happy","wink","sparkle","heart","slit","round","cross","lashes","star"];
 var MOUTHS=["smile","grin","open","neutral","smirk","tongue","oh","kitty","frown","braces","fang","laugh"];
 var OUTFIT_STYLES=["tee","hoodie","jacket","dress","robe","armor","overalls","suit","labcoat","stripes","vest","none"];
-var EXTRAS=["beard","cape","gloves","magicBoots","freckles","blush","scar","moustache","brows"];
+var EXTRAS=["beard","cape","gloves","magicBoots","freckles","blush","scar","moustache","brows","wristband","backpack","scarf"];
 var BLOCK=["FUCK","FUK","FCK","SHIT","BITCH","CUNT","DICK","COCK","PUSSY","ASSHOLE","BASTARD","WANK","TWAT","SLUT","WHORE","PISS","BOLLOCK","PENIS","VAGINA","SEX","PORN","NAZI","HITLER","RAPE","NIGG","NIGA","FAGG","RETARD","SPAZ","IDIOT","STUPID"];
 var ALLOW=["SUSSEX","ESSEX","SEXTON","COCKATOO","COCKATIEL","DICKENS","HANCOCK","PEACOCK","GRAPE","DRAPE","SCRAPE","TRAPE"];
 function defaults(){return {v:1,name:"",skin:1,hairStyle:"short",hairColor:0,outfit:1,accessory:"none",extras:{},
@@ -74,6 +74,9 @@ function sprite(p){p=clean(p);var g=[],i,j;for(i=0;i<16;i++){g.push([]);for(j=0;
  s(2,13,ac);s(13,13,ac);r(5,11,6,11,ac);r(9,11,10,11,ac);
  r(7,11,8,11,sk);
  if(ex.magicBoots){r(4,15,5,15,"#ffd23f");r(10,15,11,15,"#ffd23f")}
+ if(ex.wristband){s(2,13,"#2de2c8");s(13,13,"#2de2c8")}
+ if(ex.backpack){r(4,11,4,12,"#3a7bff");r(11,11,11,12,"#3a7bff")}
+ if(ex.scarf){r(6,11,9,11,"#3ddc84");s(7,12,"#3ddc84");s(8,12,"#2fb86e")}
  r(4,4,11,10,sk);s(4,4,null);s(11,4,null);s(4,10,null);s(11,10,null);
  var e=({10:1,11:5})[p.eyes]!==undefined?({10:1,11:5})[p.eyes]:p.eyes;
  if(e===0){s(6,7,ec);s(9,7,ec)}
@@ -168,7 +171,8 @@ function grid(p){
  function ell(cx,cy,rx,ry,c,clip){for(var y=0;y<GH;y++)for(var x=0;x<GW;x++){var dx=(x+.5-cx)/rx,dy=(y+.5-cy)/ry;if(dx*dx+dy*dy<=1&&(!clip||clip(x,y)))g[y][x]=c}}
  function row(y,xs,c){xs.forEach(function(x){s(x,y,c)})}
  /* cape */
- if(ex.cape){r(5,19,18,27,"#7a1fa2");r(5,25,18,27,"#5d1580")}
+ if(ex.cape){r(3,19,20,27,"#7a1fa2");r(3,25,20,27,"#5d1580");r(7,18,16,19,"#8e2bc0");s(8,18,"#ffd23f");s(15,18,"#ffd23f")}
+ if(ex.backpack){r(2,20,4,25,"#3a7bff");r(19,20,21,25,"#3a7bff");r(2,24,4,25,"#2f66d4");r(19,24,21,25,"#2f66d4")}
  /* back hair */
  if(st==="long"||st==="wavy"||st==="mullet"){ell(12,15,10.2,9.5,hc,function(x,y){return y<=23});r(5,20,18,23,hD);if(st==="wavy"){row(22,[3,5,7,16,18,20],hc);row(23,[4,6,17,19],hD)}}
  if(st==="braids"){r(3,10,6,25,hc);r(17,10,20,25,hc);for(var i=11;i<25;i+=3){row(i,[3,4,5,6,17,18,19,20],hD)}}
@@ -199,6 +203,9 @@ function grid(p){
  /* hands */
  r(3,22,4,25,ex.gloves?"#ffffff":sk);r(19,22,20,25,ex.gloves?"#ffffff":sk);row(25,[3,4,19,20],ex.gloves?"#d4def2":skD);
  r(4,21,5,21,oc);r(18,21,19,21,oc);
+ if(ex.backpack){r(7,20,8,23,"#3a7bff");r(15,20,16,23,"#3a7bff");s(7,22,"#ffd23f");s(16,22,"#ffd23f")}
+ if(ex.wristband){r(3,22,4,23,"#2de2c8");r(19,22,20,23,"#2de2c8");s(3,22,"#bffff2");s(20,22,"#bffff2")}
+ if(ex.magicBoots){r(6,24,9,27,"#ffd23f");r(14,24,17,27,"#ffd23f");r(6,26,9,27,"#e0a92e");r(14,26,17,27,"#e0a92e");s(7,24,"#fff2a8");s(15,24,"#fff2a8")}
  /* neck */
  r(10,18,13,20,skD);
  /* head */
@@ -269,6 +276,7 @@ function grid(p){
  if(ex.moustache){row(15,[8,9,10,13,14,15],hD)}
  if(ex.beard){r(6,16,17,18,hc);r(9,15,14,15,sk);r(10,16,13,16,sk);row(16,[10,13],hc);r(10,17,13,17,hD)}
  if(ex.brows){row(9,[7,8,9,14,15,16],hD)}
+ if(ex.scarf){r(8,18,15,19,"#3ddc84");r(8,19,15,19,"#2fb86e");r(10,20,12,23,"#3ddc84");r(10,23,12,23,"#2fb86e");s(11,21,"#b8ffd9")}
  /* accessories */
  var a=acc;
  if(a==="cap"){r(5,4,18,8,"#e23b5a");r(6,3,17,3,"#e23b5a");r(5,9,20,9,sh("#e23b5a",.7));r(8,5,10,5,sh("#e23b5a",1.4))}
